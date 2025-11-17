@@ -1,5 +1,5 @@
 run:
-    cargo run
+    dx serve
 
 run-release:
     cargo run-release

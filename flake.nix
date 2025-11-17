@@ -5,22 +5,23 @@
   };
   outputs = {self, ...} @ inputs: let
     linuxSystem = "x86_64-linux";
-    macSystem = "aarch64-darwin";
     pkgs = inputs.nixpkgs.legacyPackages.${linuxSystem};
-    pkgs-mac = inputs.nixpkgs.legacyPackages.${macSystem};
+
     overrides = builtins.fromTOML (builtins.readFile ./rust-toolchain.toml);
   in {
     devShells = let
-      libPath = pkgs.lib.makeLibraryPath libraryPackages;
       libraryPackages = with pkgs; [
         pkg-config
         openssl
         libxkbcommon
         wayland
       ];
+
+      libPath = pkgs.lib.makeLibraryPath libraryPackages;
     in {
       ${linuxSystem}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [clang llvmPackages.bintools rustup openssl];
+        buildInputs = with pkgs; [clang llvmPackages.bintools rustup];
+        nativeBuildInputs = with pkgs; [openssl pkg-config];
         RUSTC_VERSION = overrides.toolchain.channel;
 
         LIBCLANG_PATH = pkgs.lib.makeLibraryPath [pkgs.llvmPackages_latest.libclang.lib];
@@ -46,17 +47,6 @@
             ''-I"${pkgs.glib.dev}/include/glib-2.0"''
             ''-I${pkgs.glib.out}/lib/glib-2.0/include/''
           ];
-      };
-      # No idea if this Mac config actually works
-      ${macSystem}.default = pkgs-mac.mkShell rec {
-        nativeBuildInputs = with pkgs-mac; [
-          pkg-config
-          openssl
-          libxkbcommon
-          wayland
-        ];
-
-        LD_LIBRARY_PATH = pkgs-mac.lib.makeLibraryPath nativeBuildInputs;
       };
     };
   };
