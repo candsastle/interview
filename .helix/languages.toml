@@ -6,6 +6,8 @@ roots = [
   "Cargo.toml",
   "Cargo.lock"
 ]
+formatter = { command = "dx" , args = ["fmt", "--file", "-", "--all-code"]}
+language-servers = ["rust-analyzer"]
 
 [language.auto-pairs]
 '(' = ')'

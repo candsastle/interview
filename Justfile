@@ -1,5 +1,5 @@
 run:
-    dx serve
+    dx serve --hotpatch
 
 run-release:
     cargo run-release
