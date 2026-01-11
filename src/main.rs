@@ -1,4 +1,6 @@
+#![allow(non_snake_case)]
 use dioxus::prelude::*;
+static CSS: Asset = asset!("/assets/main.css");
 const HEADER_SVG: Asset = asset!("/assets/header.svg");
 fn main() {
     dioxus::launch(App);
@@ -20,20 +22,19 @@ fn DisplayList(list: Vec<String>) -> Element {
 #[component]
 fn App() -> Element {
     rsx! {
+        document::Stylesheet { href: CSS }
         div { class: "bg-red-100",
             button { onclick: move |_| info!("Clicked!"), "Click me!" }
         }
         DogApp { breed: "Corgi" }
-        DisplayList { list: vec!["Hello".to_string(), "There".to_string()] }
         div { id: "title",
-            h1 { "HotDog! 🌭" }
+            h1 { "HotDiggedyDog! 🌭" }
         }
         div { id: "dogview",
             img { src: "https://images.dog.ceo/breeds/pitbull/dog-3981540_1280.jpg" }
         }
         div { id: "buttons",
-            button { id: "skip", "skip" }
-            button { id: "save", "save!" }
+            button { id: "skip", "skip!" }
             button { id: "save", "save!" }
         }
     }

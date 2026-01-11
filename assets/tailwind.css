@@ -164,6 +164,9 @@
   .relative {
     position: relative;
   }
+  .static {
+    position: static;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -182,11 +185,11 @@
       max-width: 96rem;
     }
   }
-  .contents {
-    display: contents;
-  }
   .table {
     display: table;
+  }
+  .flex-grow {
+    flex-grow: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -196,6 +199,9 @@
   }
   .resize {
     resize: both;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
   }
   .border {
     border-style: var(--tw-border-style);
