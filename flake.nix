@@ -1,7 +1,7 @@
 {
   description = "Template Flake For Rust Projects";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
   outputs = {self, ...} @ inputs: let
     linuxSystem = "x86_64-linux";
